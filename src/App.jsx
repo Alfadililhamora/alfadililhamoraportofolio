@@ -1,11 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function App() {
   // ==========================================
   // 1. STATE & KONFIGURASI TEMA
   // ==========================================
   const [isDark, setIsDark] = useState(true);
-  const [heroKey, setHeroKey] = useState(0);
+
+  // LOGIKA OBSERVER (Tetap sama, ini mesin utamanya)
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        } else {
+          entry.target.classList.remove('active');
+        }
+      });
+    }, observerOptions);
+
+    const sections = document.querySelectorAll('.reveal');
+    sections.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
 
   const theme = {
     bg: isDark ? '#000000' : '#ffffff',
@@ -19,7 +40,8 @@ export default function App() {
   // 2. DATA STATIC
   // ==========================================
   const navLinks = [
-    { name: 'ABOUT', id: 'about' },
+    { name: 'HOME', id: 'about' }, 
+    { name: 'ABOUT ME', id: 'about-details' }, 
     { name: 'EXPERIENCE', id: 'exp' },
     { name: 'CERTIFICATIONS', id: 'cert' },
     { name: 'PROJECTS', id: 'project' },
@@ -50,12 +72,18 @@ export default function App() {
   ];
 
   const certifications = [
-    { name: "IT Specialist – Python", org: "Certiport / Pearson VUE" },
-    { name: "MTCNA – MikroTik Certified Network Associate", org: "MikroTik" },
-    { name: "Ethical Hacker (Cisco Certified)", org: "Cisco" },
-    { name: "Certified GRC Analyst (CGRCA)", org: "Professional Certification" },
-    { name: "IBM Granite AI & Data Classification", org: "IBM SkillsBuild" },
-    { name: "Cybersecurity Fundamentals Specialist (CCFS)", org: "Specialist Cert" }
+    { name: "IT Specialist – Python", org: "Certiport / Pearson VUE", img: "/itspecialist.jpg" },
+    { name: "IBM Granite AI & Data Classification", org: "IBM SkillsBuild", img: "/ibm.jpg" },
+    { name: "MTCNA – MikroTik Certified Network Associate", org: "MikroTik", img: "/mtcna.jpg" },
+    { name: "Ethical Hacker (Cisco Certified)", org: "Cisco", img: "/ethical.jpg" },
+    { name: "Python Essentials 1", org: "Cisco Networking Academy", img: "/pythonins.jpg" },
+    { name: "Certified GRC Analyst (CGRCA)", org: "Professional Certification", img: "/cgrca.jpg" },
+    { name: "Cybersecurity Fundamentals Specialist (CCFS)", org: "Specialist Cert", img: "/CCFS.jpg" },
+    { name: "Certified Phishing Prevention Specialist (CPPS)", org: "Hack & Fix Academy", img: "/cpps.jpg" },
+    { name: "Cybersecurity Career Starter Certification (CCSC)", org: "Hack & Fix Academy", img: "/ccsc.jpg" },
+    { name: "Digital Awareness", org: "Cisco Networking Academy", img: "/digital.jpg" },
+    { name: "Mini Capture The Flag (CTF) Participant", org: "Permikomnas Wilayah VIII", img: "/permikomnas.jpeg" },
+    { name: "Top 1000 9th IndonesiaNEXT Digital Talent", org: "Telkomsel", img: "/Telkom.jpg" },
   ];
 
   const projects = [
@@ -69,16 +97,10 @@ export default function App() {
 
   return (
     <>
-      {/* ==========================================
-          3. CSS STYLING
-          ========================================== */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Caveat:wght@700&family=Inter:wght@400;700;900&display=swap');
 
-        * { 
-          margin: 0; padding: 0; box-sizing: border-box; 
-          border-left: none !important; border-right: none !important; 
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; border-left: none !important; border-right: none !important; }
         
         html, body { 
           width: 100%; overflow-x: hidden;
@@ -162,39 +184,38 @@ export default function App() {
           to { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
 
-        .fade-in { 
-          opacity: 0; 
-          animation: fadeInUp 0.8s ease-out forwards; 
+        @keyframes menyembulKiri {
+          from { opacity: 0; transform: translateX(-100px); filter: blur(10px); }
+          to { opacity: 1; transform: translateX(0); filter: blur(0); }
         }
+
+        @keyframes menyembulKanan {
+          from { opacity: 0; transform: translateX(100px); filter: blur(10px); }
+          to { opacity: 1; transform: translateX(0); filter: blur(0); }
+        }
+
+        .fade-in, .slide-in-left, .slide-in-right { 
+           opacity: 0; 
+           filter: blur(10px); 
+           transition: all 0.8s ease-out;
+        }
+
+        .active .fade-in { animation: fadeInUp 0.8s ease-out forwards; }
+        .active .slide-in-left { animation: menyembulKiri 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+        .active .slide-in-right { animation: menyembulKanan 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
       `}</style>
 
       <div className="ultra-full-layout">
-        {/* ==========================================
-            4. COMPONENT: NAVIGATION
-            ========================================== */}
+        {/* NAVIGATION: Perbaikan pada onClick (Hapus setKey) */}
         <nav>
-          <div style={{ 
-            fontSize: '0.9rem', 
-            fontWeight: '900', 
-            letterSpacing: '12px', 
-            fontFamily: "'Inter', sans-serif", 
-            textTransform: 'uppercase', 
-            color: theme.text, 
-            display: 'flex', 
-            alignItems: 'center', 
-            cursor: 'pointer' 
-          }}>
+          <div style={{ fontSize: '0.9rem', fontWeight: '900', letterSpacing: '12px', color: theme.text, display: 'flex', alignItems: 'center' }}>
             ALKYORA
             <span style={{ width: '40px', height: '1px', background: theme.accent, marginLeft: '10px', opacity: 0.5 }}></span>
           </div>
 
           <div className="nav-links">
             {navLinks.map(link => (
-              <a 
-                key={link.id} 
-                href={`#${link.id}`} 
-                onClick={() => link.id === 'about' && setHeroKey(prev => prev + 1)}
-              >
+              <a key={link.id} href={`#${link.id}`}>
                 {link.name}
               </a>
             ))}
@@ -204,16 +225,10 @@ export default function App() {
           </div>
         </nav>
 
-        {/* ==========================================
-            5. SECTION: HERO (ABOUT)
-            ========================================== */}
-        <section id="about" className="hero" key={heroKey}>
-          <div className="sub-header fade-in" style={{ animationDelay: '0.2s' }}>
-            Hi there! 👋 I'm
-          </div>
-          <h1 className="brush-name fade-in" style={{ animationDelay: '0.4s' }}>
-            Alfadil Ilhamora
-          </h1>
+        {/* SECTION 1: HERO (HOME) - Perbaikan: Hapus atribut 'key' */}
+        <section id="about" className="hero reveal">
+          <div className="sub-header fade-in" style={{ animationDelay: '0.2s' }}>Hi there! 👋 I'm</div>
+          <h1 className="brush-name fade-in" style={{ animationDelay: '0.4s' }}>Alfadil Ilhamora</h1>
           <p className="fade-in" style={{ letterSpacing: '5px', color: theme.accent, fontWeight: 'bold', fontSize: '0.9rem', marginBottom: '20px', animationDelay: '0.6s' }}>
             CYBER SECURITY | INTERNET OF THINGS | FULLSTACK DEV
           </p>
@@ -222,14 +237,40 @@ export default function App() {
           </p>
         </section>
 
-        {/* ==========================================
-            6. SECTION: EXPERIENCE
-            ========================================== */}
-        <section id="exp" className="section">
-          <h2>PROFESSIONAL EXPERIENCE</h2>
+        {/* SECTION 2: ABOUT DETAILS - Perbaikan: Hapus atribut 'key' */}
+        <section id="about-details" className="section reveal" style={{ background: isDark ? '#050505' : '#fafafa' }}>
+          <h2 className="fade-in" style={{ marginBottom: '40px' }}>ABOUT ME!</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '80px', alignItems: 'center' }}>
+            <div className="slide-in-left" style={{ fontSize: '1.1rem', color: isDark ? '#888' : '#666', lineHeight: '1.9', textAlign: 'justify' }}>
+              <p style={{ marginBottom: '20px' }}>
+                <span style={{ color: theme.accent, fontWeight: 'bold' }}>I'm Alfadil Ilhamora,</span> an Informatics student at Dehasen University. I specialize in <span style={{ color: theme.text, fontWeight: 'bold' }}>Cyber Security and IoT.</span>
+              </p>
+              <p>
+                My journey began in design, but I soon realized my strength lies in understanding how systems work, how they are built, and how they can be secured.
+                Since childhood, computers have been more than just tools—they’ve been my space for exploration. What started as curiosity grew into a strong passion for cybersecurity and technology.
+                This passion led me to pursue Informatics, where I continue to develop my skills in cybersecurity, web development, and robotics. I also take part in leadership roles and founded Exora Robotics Club to create a space for innovation and growth.
+                I believe technology is not just about skills, but about creating impact—especially in empowering people and building a stronger tech community in my region.
+              </p>
+            </div>
+            <div className="slide-in-right" style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
+              <div style={{ position: 'absolute', width: '320px', height: '320px', borderRadius: '50%', background: theme.accent, filter: 'blur(50px)', opacity: 0.2 }}></div>
+              <img 
+                src="/alfadil.png" 
+                alt="Alfadil" 
+                style={{ width: '320px', height: '320px', borderRadius: '50%', objectFit: 'cover', border: `4px solid ${theme.accent}`, zIndex: 1, transition: '0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)' }}
+                onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05) rotate(3deg)'}
+                onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1) rotate(0deg)'}
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 3: EXPERIENCE */}
+        <section id="exp" className="section reveal">
+          <h2 className="fade-in">PROFESSIONAL EXPERIENCE</h2>
           <div className="grid">
             {experience.map((exp, index) => (
-              <div key={index} className="card">
+              <div key={index} className="card fade-in" style={{ animationDelay: `${index * 0.2}s` }}>
                 <div style={{ color: theme.accent, fontWeight: 'bold', fontSize: '0.8rem', marginBottom: '10px' }}>{exp.period}</div>
                 <h3 style={{ fontSize: '1.8rem', marginBottom: '20px' }}>{exp.title}</h3>
                 <p style={{ color: isDark ? '#888' : '#555', lineHeight: '1.7' }}>{exp.desc}</p>
@@ -238,37 +279,40 @@ export default function App() {
           </div>
         </section>
 
-        {/* ==========================================
-            7. SECTION: CERTIFICATIONS & SKILLS
-            ========================================== */}
-        <section id="cert" className="section" style={{ background: isDark ? '#050505' : '#fafafa' }}>
-          <h2>LICENSES & SKILLS</h2>
+        {/* SECTION 4: CERTIFICATIONS */}
+        <section id="cert" className="section reveal" style={{ background: isDark ? '#050505' : '#fafafa' }}>
+          <h2 className="fade-in">LICENSES & SKILLS</h2>
           <div style={{ marginTop: '50px' }}>
-            <h3 style={{ marginBottom: '25px', fontSize: '1.2rem', opacity: 0.7 }}>CORE CERTIFICATIONS</h3>
-            <div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '25px' }}>
               {certifications.map((c, i) => (
-                <div key={i} className="badge">{c.name.toUpperCase()} — {c.org}</div>
+                <div key={i} className="fade-in" style={{ background: theme.cardBg, border: `1px solid ${theme.border}`, borderRadius: '12px', overflow: 'hidden', animationDelay: `${i * 0.1}s` }}>
+                  <div style={{ width: '100%', height: '200px', background: '#111' }}>
+                    <img src={c.img} alt={c.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} onError={(e) => { e.target.src = "https://via.placeholder.com/400x250?text=Cert"; }} />
+                  </div>
+                  <div style={{ padding: '20px' }}>
+                    <div style={{ color: theme.accent, fontSize: '0.7rem', fontWeight: '900', marginBottom: '8px' }}>{c.org.toUpperCase()}</div>
+                    <div style={{ fontSize: '1rem', fontWeight: 'bold' }}>{c.name}</div>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
-          <div style={{ marginTop: '50px' }}>
-            <h3 style={{ marginBottom: '25px', fontSize: '1.2rem', opacity: 0.7 }}>SOFT SKILLS</h3>
-            <div>
+          <div style={{ marginTop: '70px' }}>
+            <h3 className="fade-in" style={{ marginBottom: '25px', fontSize: '1.2rem', opacity: 0.7 }}>SOFT SKILLS</h3>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
               {softSkills.map((s, i) => (
-                <div key={i} className="badge" style={{ color: theme.text, borderColor: theme.text }}>{s.toUpperCase()}</div>
+                <div key={i} className="badge fade-in" style={{ color: theme.text, borderColor: theme.text, border: `1px solid ${theme.text}`, animationDelay: `${i * 0.1}s` }}>{s.toUpperCase()}</div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ==========================================
-            8. SECTION: PROJECTS
-            ========================================== */}
-        <section id="project" className="section">
-          <h2>FEATURED PROJECTS</h2>
+        {/* SECTION 5: PROJECTS */}
+        <section id="project" className="section reveal">
+          <h2 className="fade-in">FEATURED PROJECTS</h2>
           <div className="grid">
             {projects.map((p, i) => (
-              <div key={i} className="card">
+              <div key={i} className="card fade-in" style={{ animationDelay: `${i * 0.2}s` }}>
                 <div style={{ color: theme.accent, fontWeight: 'bold', fontSize: '0.8rem', letterSpacing: '2px' }}>{p.tech}</div>
                 <h3 style={{ fontSize: '2.2rem', margin: '20px 0' }}>{p.title}</h3>
                 <p style={{ color: isDark ? '#888' : '#555', lineHeight: '1.8' }}>{p.desc}</p>
@@ -277,21 +321,16 @@ export default function App() {
           </div>
         </section>
 
-        {/* ==========================================
-            9. SECTION: CONTACT
-            ========================================== */}
-        <section id="contact" className="section" style={{ textAlign: 'center' }}>
-          <h2>LET'S CONNECT</h2>
-          <div style={{ marginTop: '60px' }}>
+        {/* SECTION 6: CONTACT */}
+        <section id="contact" className="section reveal" style={{ textAlign: 'center' }}>
+          <h2 className="fade-in">LET'S CONNECT</h2>
+          <div className="fade-in" style={{ marginTop: '60px' }}>
             <p style={{ fontSize: '2rem', fontWeight: '900', color: theme.accent }}>alfaaora11@gmail.com</p>
             <p style={{ fontSize: '1.2rem', marginTop: '20px' }}>WhatsApp: +62 851 8051 8503</p>
             <p style={{ opacity: 0.5, marginTop: '10px' }}>Bengkulu, Indonesia</p>
           </div>
-          <div style={{ marginTop: '150px', opacity: 0.05, fontWeight: '900', fontSize: '8vw', lineHeight: '1' }}>
-            ALKYORA
-          </div>
+          <div style={{ marginTop: '150px', opacity: 0.05, fontWeight: '900', fontSize: '8vw', lineHeight: '1' }}>ALKYORA</div>
         </section>
-
       </div>
     </>
   );
