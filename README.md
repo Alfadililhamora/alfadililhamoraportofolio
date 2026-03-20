@@ -1,16 +1,57 @@
-# React + Vite
+# 🚀 My React Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio website built with **React + Vite** untuk menampilkan skill, project, dan perjalanan gue di dunia **Web Development & Cybersecurity**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ Features
 
-## React Compiler
+- ⚡ Lightning fast performance (Vite)
+- ⚛️ Modern UI dengan React
+- 📱 Fully responsive design
+- 🎯 Project showcase
+- 🧠 Clean & scalable architecture
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React
+- Vite
+- JavaScript
+- CSS / Tailwind
+- ESLint
+
+---
+
+## 🎯 Purpose
+
+Website ini dibuat untuk:
+
+- Membangun personal branding di dunia IT
+- Showcase project real
+- Menampilkan skill frontend & development
+- Persiapan karir global 🌍
+
+---
+
+## 📸 Preview
+
+> Tambahkan screenshot terbaik lo di sini biar makin stand out
+
+---
+
+## 🌐 Live Demo
+
+👉 https://your-portfolio-link.vercel.app
+
+---
+
+## 👑 Author
+
+**Alfadil Ilhamora**  
+Cyber Security Enthusiast | Web Developer  
+
+---
+
+💡 *"Build something simple, make it powerful."*
