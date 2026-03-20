@@ -35,12 +35,6 @@ Website ini dibuat untuk:
 
 ---
 
-## 📸 Preview
-
-> Tambahkan screenshot terbaik lo di sini biar makin stand out
-
----
-
 ## 🌐 Live Demo
 
 👉 https://your-portfolio-link.vercel.app
