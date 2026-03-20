@@ -44,7 +44,6 @@ Website ini dibuat untuk:
 ## 👑 Author
 
 **Alfadil Ilhamora**  
-Cyber Security Enthusiast | Web Developer  
 
 ---
 
