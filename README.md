@@ -1,6 +1,6 @@
 # 🚀 My React Portfolio
 
-Personal portfolio website built with **React + Vite** untuk menampilkan skill, project, dan perjalanan gue di dunia **Web Development & Cybersecurity**.
+Personal portfolio website built with **React + Vite** untuk menampilkan skill, project, dan perjalananku di dunia **Web Development & Cybersecurity**.
 
 ---
 
