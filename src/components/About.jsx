@@ -5,39 +5,11 @@ export default function About() {
 
   return (
     <section id="about-details" className="section section-alt reveal">
-      <div style={{ paddingLeft: '8%', paddingRight: isExpanded ? '8%' : '0%', transition: 'all 0.5s ease' }}>
-        <h2
-          className="fade-in"
-          style={{
-            marginBottom: '40px',
-            textAlign: isExpanded ? 'center' : 'left',
-            transition: 'all 0.6s ease',
-          }}
-        >
-          ABOUT ME!
-        </h2>
+      <div className={`about-container ${isExpanded ? 'expanded' : ''}`}>
+        <h2 className="fade-in about-title">ABOUT ME!</h2>
 
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: isExpanded ? '1fr' : 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: isExpanded ? '0' : '80px',
-            alignItems: 'center',
-            transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
-          }}
-        >
-          <div
-            className="slide-in-left"
-            style={{
-              fontSize: '1.1rem',
-              color: 'var(--text-muted)',
-              lineHeight: '1.9',
-              textAlign: 'justify',
-              maxWidth: isExpanded ? '900px' : '100%',
-              margin: isExpanded ? '0 auto' : '0',
-              transition: 'all 0.6s ease',
-            }}
-          >
+        <div className="about-grid">
+          <div className="slide-in-left about-bio">
             <p style={{ marginBottom: '20px' }}>
               <span style={{ color: 'var(--accent)', fontWeight: 'bold' }}>I'm Alfadil Ilhamora,</span> an Informatics
               student at Dehasen University, Bengkulu (Indonesia) specializing as an{' '}
@@ -129,46 +101,9 @@ export default function About() {
             </button>
           </div>
 
-          <div
-            className="slide-in-right"
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              position: 'relative',
-              opacity: isExpanded ? 0 : 1,
-              visibility: isExpanded ? 'hidden' : 'visible',
-              maxHeight: isExpanded ? '0px' : '500px',
-              transform: isExpanded ? 'scale(0.8) translateY(20px)' : 'scale(1) translateY(0)',
-              transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
-              pointerEvents: isExpanded ? 'none' : 'auto',
-            }}
-          >
-            <div
-              style={{
-                position: 'absolute',
-                width: '320px',
-                height: '320px',
-                borderRadius: '50%',
-                background: 'var(--accent)',
-                filter: 'blur(50px)',
-                opacity: 0.2,
-              }}
-            ></div>
-            <img
-              src="/alfadil.png"
-              alt="Alfadil"
-              style={{
-                width: '320px',
-                height: '320px',
-                borderRadius: '50%',
-                objectFit: 'cover',
-                border: '4px solid var(--accent)',
-                zIndex: 1,
-                transition: '0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-              }}
-              onMouseOver={(e) => (e.currentTarget.style.transform = 'scale(1.05) rotate(3deg)')}
-              onMouseOut={(e) => (e.currentTarget.style.transform = 'scale(1) rotate(0deg)')}
-            />
+          <div className="slide-in-right about-photo-col">
+            <div className="about-photo-glow"></div>
+            <img src="/alfadil.png" alt="Alfadil" className="about-avatar" />
           </div>
         </div>
       </div>

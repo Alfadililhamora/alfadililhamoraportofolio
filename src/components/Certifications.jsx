@@ -13,7 +13,7 @@ export default function Certifications({ items, isAdmin, onQuickAdd, onDelete })
         )}
       </div>
 
-      <div style={{ marginTop: '50px' }}>
+      <div style={{ marginTop: '40px' }}>
         <div className="cert-grid">
           {items.map((c, i) => (
             <div
@@ -46,14 +46,7 @@ export default function Certifications({ items, isAdmin, onQuickAdd, onDelete })
         </div>
       </div>
 
-      <div
-        style={{
-          marginTop: '70px',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: '40px',
-        }}
-      >
+      <div className="skills-grid">
         <div>
           <h3 className="fade-in" style={{ marginBottom: '25px', fontSize: '1.2rem', opacity: 0.7 }}>
             SOFT SKILLS
