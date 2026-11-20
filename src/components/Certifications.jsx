@@ -1,7 +1,16 @@
 import React from 'react';
 import { softSkills, hardSkillIcons } from '../data/portfolioData';
 
+const FALLBACK_ICONS = [
+  'html', 'css', 'js', 'react', 'php', 'mysql', 'supabase',
+  'python', 'cpp', 'linux', 'bash', 'git', 'github', 'arduino', 'kalilinux'
+];
+
 export default function Certifications({ items, isAdmin, onQuickAdd, onDelete }) {
+  const iconsList = Array.isArray(hardSkillIcons) && hardSkillIcons.length > 0
+    ? hardSkillIcons
+    : FALLBACK_ICONS;
+
   return (
     <section id="cert" className="section section-alt reveal">
       <div className="section-header-row">
@@ -71,14 +80,21 @@ export default function Certifications({ items, isAdmin, onQuickAdd, onDelete })
             HARD SKILLS
           </h3>
           <div className="hard-skills-box fade-in">
-            {hardSkillIcons.map((icon, index) => (
+            {iconsList.map((icon, index) => (
               <img
-                key={index}
+                key={icon + index}
                 src={`https://skillicons.dev/icons?i=${icon}`}
                 alt={icon}
-                loading="lazy"
+                width="50"
+                height="50"
                 decoding="async"
                 className={`floating-icon delay-${(index % 4) + 1}`}
+                onError={(e) => {
+                  if (!e.currentTarget.dataset.retried) {
+                    e.currentTarget.dataset.retried = '1';
+                    e.currentTarget.src = `https://go-skill-icons.vercel.app/api/icons?i=${icon}`;
+                  }
+                }}
               />
             ))}
           </div>
