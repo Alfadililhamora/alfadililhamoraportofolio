@@ -1,4 +1,59 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+
+const FULL_TEXT = "Let's Connect!";
+
+function TypewriterWatermark() {
+  const [text, setText] = useState('');
+  const [deleting, setDeleting] = useState(false);
+  const [active, setActive] = useState(false);
+  const wrapRef = useRef(null);
+
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setActive(entry.isIntersecting),
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!active) return;
+
+    const speed = !deleting && text === FULL_TEXT
+      ? 2000
+      : deleting && text === ''
+      ? 500
+      : deleting
+      ? 65
+      : 120;
+
+    const timer = setTimeout(() => {
+      if (!deleting) {
+        if (text.length < FULL_TEXT.length) {
+          setText(FULL_TEXT.slice(0, text.length + 1));
+        } else {
+          setDeleting(true);
+        }
+      } else if (text.length > 0) {
+        setText(FULL_TEXT.slice(0, text.length - 1));
+      } else {
+        setDeleting(false);
+      }
+    }, speed);
+
+    return () => clearTimeout(timer);
+  }, [text, deleting, active]);
+
+  return (
+    <div ref={wrapRef} className="contact-watermark" aria-label="Let's Connect!">
+      <span>{text}</span>
+      <span className="contact-typing-cursor" aria-hidden="true">|</span>
+    </div>
+  );
+}
 
 export default function Contact() {
   return (
@@ -56,7 +111,7 @@ export default function Contact() {
         <p style={{ opacity: 0.5, marginTop: '30px' }}>Bengkulu, Indonesia</p>
       </div>
 
-      <div className="contact-watermark">Let's Connect!</div>
+      <TypewriterWatermark />
     </section>
   );
 }

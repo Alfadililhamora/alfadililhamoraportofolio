@@ -19,7 +19,7 @@ export default function Certifications({ items, isAdmin, onQuickAdd, onDelete })
             <div
               key={i}
               className="cert-card fade-in"
-              style={{ animationDelay: `${i * 0.08}s` }}
+              style={{ animationDelay: `${Math.min(i * 0.04, 0.5)}s` }}
             >
               {isAdmin && (
                 <button type="button" className="btn-card-delete" onClick={() => onDelete(i)}>
@@ -30,6 +30,8 @@ export default function Certifications({ items, isAdmin, onQuickAdd, onDelete })
                 <img
                   src={c.img}
                   alt={c.name}
+                  loading="lazy"
+                  decoding="async"
                   onError={(e) => {
                     e.target.src = 'https://via.placeholder.com/400x250?text=Cert';
                   }}
@@ -56,7 +58,7 @@ export default function Certifications({ items, isAdmin, onQuickAdd, onDelete })
               <div
                 key={i}
                 className="badge fade-in"
-                style={{ animationDelay: `${i * 0.1}s` }}
+                style={{ animationDelay: `${i * 0.05}s` }}
               >
                 {s.toUpperCase()}
               </div>
@@ -74,6 +76,8 @@ export default function Certifications({ items, isAdmin, onQuickAdd, onDelete })
                 key={index}
                 src={`https://skillicons.dev/icons?i=${icon}`}
                 alt={icon}
+                loading="lazy"
+                decoding="async"
                 className={`floating-icon delay-${(index % 4) + 1}`}
               />
             ))}
