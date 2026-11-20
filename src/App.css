@@ -1809,3 +1809,122 @@ h2 {
     transform: translate3d(0, -9px, 0);
   }
 }
+
+.nav-action-cluster {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-github-btn {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 6px;
+  color: var(--text) !important;
+  background: transparent;
+  border: 1px solid var(--border) !important;
+  text-decoration: none;
+  transition: color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.nav-github-btn:hover {
+  color: var(--accent) !important;
+  border-color: var(--accent) !important;
+  transform: translateY(-2px) scale(1.06);
+}
+
+
+/* =========================================================
+   NAVBAR LINK UNDERLINE ANIMATION
+   ========================================================= */
+.nav-links a {
+  position: relative;
+  padding-bottom: 6px;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 8px rgba(79, 172, 254, 0.55);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-links a:hover::after,
+.nav-links a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+
+/* =========================================================
+   CONTACT FOOTER UNIQUE BACKGROUND (PENUTUP ELEGAN)
+   ========================================================= */
+#contact {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 75% 55% at 50% 100%, rgba(79, 172, 254, 0.12) 0%, transparent 72%),
+    linear-gradient(180deg, #04070e 0%, #070d19 52%, #0a1426 100%);
+  border-top: 1px solid rgba(79, 172, 254, 0.22) !important;
+}
+
+#contact::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(460px, 70%);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+[data-theme="light"] #contact {
+  background:
+    radial-gradient(ellipse 75% 55% at 50% 100%, rgba(79, 172, 254, 0.14) 0%, transparent 72%),
+    linear-gradient(180deg, #f3f7fc 0%, #eaf1fa 55%, #e1ebf7 100%);
+  border-top: 1px solid rgba(79, 172, 254, 0.3) !important;
+}
+
+
+/* =========================================================
+   CERTIFICATIONS GALLERY AMBIENT BACKGROUND
+   ========================================================= */
+#cert {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 14% 22%, rgba(56, 189, 248, 0.09) 0%, transparent 46%),
+    radial-gradient(circle at 86% 28%, rgba(129, 140, 248, 0.09) 0%, transparent 48%),
+    radial-gradient(circle at 52% 82%, rgba(244, 63, 94, 0.06) 0%, transparent 52%),
+    linear-gradient(180deg, #090b10 0%, #0d111a 50%, #090c14 100%) !important;
+}
+
+#cert .cert-card {
+  background: rgba(17, 21, 31, 0.85);
+  backdrop-filter: blur(6px);
+}
+
+[data-theme="light"] #cert {
+  background:
+    radial-gradient(circle at 14% 22%, rgba(56, 189, 248, 0.1) 0%, transparent 46%),
+    radial-gradient(circle at 86% 28%, rgba(129, 140, 248, 0.1) 0%, transparent 48%),
+    radial-gradient(circle at 52% 82%, rgba(244, 63, 94, 0.06) 0%, transparent 52%),
+    linear-gradient(180deg, #f6f8fc 0%, #eef2f9 50%, #f4f7fc 100%) !important;
+}
+
+[data-theme="light"] #cert .cert-card {
+  background: rgba(255, 255, 255, 0.9);
+}
