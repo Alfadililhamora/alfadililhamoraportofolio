@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Caveat:wght@700&family=Inter:wght@400;700;900&display=swap');
+
+:root,
+[data-theme='dark'] {
+  --bg: #000000;
+  --bg-alt: #050505;
+  --text: #ffffff;
+  --text-muted: #888888;
+  --text-hero: #cccccc;
+  --accent: #4facfe;
+  --card-bg: #080808;
+  --border: #1a1a1a;
+  --nav-bg: rgba(0, 0, 0, 0.9);
+  --card-shadow: rgba(0, 0, 0, 0.5);
+  --skill-box-bg: rgba(255, 255, 255, 0.03);
+  --video-opacity: 0.4;
+}
+
+[data-theme='light'] {
+  --bg: #ffffff;
+  --bg-alt: #fafafa;
+  --text: #000000;
+  --text-muted: #666666;
+  --text-hero: #444444;
+  --accent: #4facfe;
+  --card-bg: #f9f9f9;
+  --border: #e2e8f0;
+  --nav-bg: rgba(255, 255, 255, 0.9);
+  --card-shadow: rgba(0, 0, 0, 0.05);
+  --skill-box-bg: rgba(0, 0, 0, 0.03);
+  --video-opacity: 0.7;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border-left: none !important;
+  border-right: none !important;
+}
+
+html,
+body {
+  width: 100%;
+  overflow-x: hidden;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  scroll-behavior: smooth;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
